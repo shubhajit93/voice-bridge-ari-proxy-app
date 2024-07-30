@@ -1,0 +1,22 @@
+{
+  "name": "voice-bridge-ari-app",
+  "version": "1.0.0",
+  "description": "voice bridge ari application",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "author": "shubhajit",
+  "license": "ISC",
+  "dependencies": {
+    "ari-client": "^2.2.0",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
+    "opossum": "^8.1.4",
+    "winston": "^3.13.1",
+    "winston-daily-rotate-file": "^5.0.0"
+  }
+}
