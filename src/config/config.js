@@ -21,5 +21,12 @@ export const config = {
     },
     logger:{
         logLevel:process.env.LOG_LEVEL
+    },
+    outbound_call:{
+        extension:process.env.OUTBOUND_CALL_EXTENSION,
+        context:process.env.OUTBOUND_CALL_CONTEXT,
+        priority:parseInt(process.env.OUTBOUND_CALL_PRIORITY),
+        ring_timeout:parseInt(process.env.OUTBOUND_CALL_RING_TIMEOUT),
+        app_argument:process.env.OUTBOUND_CALL_APP_ARGUMENT
     }
 };

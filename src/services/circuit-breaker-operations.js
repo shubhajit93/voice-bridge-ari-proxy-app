@@ -14,6 +14,8 @@ import {
     hangupChannel
 } from "./ari-operations.js";
 
+import { originateOutboundCall } from "./outboundCallService.js";
+
 export const createExternalMediaChannelWithBreaker = applyCircuitBreaker(createExternalMediaChannel);
 export const createBridgeWithBreaker = applyCircuitBreaker(createBridge);
 export const addChannelToBridgeWithBreaker = applyCircuitBreaker(addChannelToBridge);
@@ -24,3 +26,5 @@ export const hangupChannelWithBreaker = applyCircuitBreaker(hangupChannel);
 export const getRtpInfoFormVbProxyWithBreaker = applyCircuitBreaker(getRtpInfoFormVbProxy);
 export const postRtpInfoToVbProxyWithBreaker = applyCircuitBreaker(postRtpInfoToVbProxy);
 export const postEventToVbProxyWithBreaker = applyCircuitBreaker(postEventToVbProxy);
+
+export const originateOutboundCallWithBreaker = applyCircuitBreaker(originateOutboundCall);

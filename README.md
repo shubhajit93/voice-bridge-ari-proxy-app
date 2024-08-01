@@ -71,8 +71,22 @@ curl --location 'http://127.0.0.1:4001/ari-proxy/event' \
     "timestamp": "2024-07-09T12:34:56Z"
 }'
 ```
+#### 2. Outbound call generation from vb-proxy to ari-proxy
+```commandline
+curl --location 'http://127.0.0.1:4001/ari-proxy/event' \
+--header 'Content-Type: application/json' \
+--data '{
+    "type": "OUTBOUND_CALL",
+    "callId": "NA",
+    "timestamp": "2024-07-27T12:34:56Z",
+    "data": {
+        "destination": "6001",
+        "source": "cds_user"
+    }
+}'
+```
 
-#### 2. End call event from ari-proxy to vb-proxy
+#### 3. End call event from ari-proxy to vb-proxy
 ```commandline
 curl --location 'http://localhost:3002/stream/optclose/' \
 --header 'Content-Type: application/json' \

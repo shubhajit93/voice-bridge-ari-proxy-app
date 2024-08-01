@@ -1,4 +1,7 @@
-import { hangupChannelWithBreaker } from "../services/circuit-breaker-operations.js";
+import { 
+    hangupChannelWithBreaker,
+    originateOutboundCallWithBreaker 
+} from "../services/circuit-breaker-operations.js";
 import { 
     getChannelIdFromCallId,
     deleteCallIdFromMap
@@ -8,22 +11,20 @@ import {
 export async function processIncommingEventFromVB(event){
     logger.info(`Event type received: ${event.type} with callId: ${event.callId}`);
 
-    let channelId = await getChannelIdFromCallId(event.callId);
-    
-    if(channelId){  
-        switch(event.type){
-            case 'END_CALL':
-                await hangupChannelWithBreaker.fire(channelId);
-                await deleteCallIdFromMap(event.callId);
-                break;
-            //handle other events
-            default:
-                logger.error(`Unhandled event type: ${event.type}`);
-        }
-    } else{
-        logger.error(`Event type: ${event.type} with CallId: ${event.callId} is not found!!!`);
-    }
-    
+    switch(event.type){
+        case 'END_CALL':
+            let channelId = await getChannelIdFromCallId(event.callId);
+            await hangupChannelWithBreaker.fire(channelId);
+            await deleteCallIdFromMap(event.callId);
+            break;
+        case 'OUTBOUND_CALL':
+            //callId ignorable, because callId is generated inside ari application and then sent to vp proxy
+            logger.info(`Request for outbound call with destination: ${event.data.destination} amd source: ${event.data.source}`);
+            const result = await originateOutboundCallWithBreaker.fire(event.data.destination, event.data.source);
+            return result;
 
+        default:
+            logger.error(`Unhandled Event type: ${event.type} with CallId: ${event.callId}`);
+    }
 
 }
